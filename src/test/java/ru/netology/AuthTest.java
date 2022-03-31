@@ -1,32 +1,27 @@
 package ru.netology;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.*;
-import static io.restassured.RestAssured.*;
+import static ru.netology.DataGenerator.Registration.getRegisteredUser;
+import static ru.netology.DataGenerator.Registration.*;
+import static ru.netology.DataGenerator.getRandomLogin;
+import static ru.netology.DataGenerator.getRandomPassword;
 
 // спецификация нужна для того, чтобы переиспользовать настройки в разных запросах
 public class AuthTest {
 
-    @BeforeEach
-    void setup() {
-        open("http://localhost:9999");
-    }
+//    @BeforeEach
+//    void setup() {
+//        open("http://localhost:9999");
+//    }
 
     @Test
     void shouldSuccessfulLoginIfRegisteredActiveUser() {
-        var registeredUser = getRegisteredUser("active");
+        DataGenerator.RegistrationDto registeredUser = getRegisteredUser("active");
+        DataGenerator.sendRequest(registeredUser);
         // TODO: добавить логику теста, в рамках которого будет выполнена попытка входа в личный кабинет с учётными
         //  данными зарегистрированного активного пользователя, для заполнения полей формы используйте
         //  пользователя registeredUser
-
     }
 
     @Test

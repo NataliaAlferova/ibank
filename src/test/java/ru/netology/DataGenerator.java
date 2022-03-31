@@ -21,18 +21,19 @@ public class DataGenerator {
             .setContentType(ContentType.JSON)
             .log(LogDetail.ALL)
             .build();
+
     private static final Faker faker = new Faker(new Locale("en"));
 
     private DataGenerator() {
     }
 
-    private static void sendRequest(RegistrationDto user) {
+    public static void sendRequest(RegistrationDto user) {
         // TODO: отправить запрос на указанный в требованиях path, передав в body запроса объект user
         //  и не забудьте передать подготовленную спецификацию requestSpec.
         //  Пример реализации метода показан в условии к задаче.
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
-                .body(new RegistrationDto("vasya", "password", "active")) // передаём в теле объект, который будет преобразован в JSON
+                .body(user) // передаём в теле объект, который будет преобразован в JSON
         .when() // "когда"
                 .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
         .then() // "тогда ожидаем"
@@ -58,22 +59,25 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
+            String login = getRandomLogin();
+            String password = getRandomPassword();
             // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
-            var user (getRandomLogin(), getRandomPassword());
+            RegistrationDto user = new RegistrationDto(login, password, status);
             return user;
         }
 
         public static RegistrationDto getRegisteredUser(String status) {
             // TODO: объявить переменную registeredUser и присвоить ей значение возвращённое getUser(status).
             // Послать запрос на регистрацию пользователя с помощью вызова sendRequest(registeredUser)
+            RegistrationDto registeredUser = getUser(status);
             return registeredUser;
         }
     }
 
     @Value
     public static class RegistrationDto {
-        String login;
-        String password;
+//        String login;
+//        String password;
         String status;
     }
 }
