@@ -1,13 +1,11 @@
 package ru.netology;
 
 import com.github.javafaker.Faker;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIConversion;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
-import lombok.val;
 
 import java.util.Locale;
 
@@ -59,10 +57,12 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-            String login = getRandomLogin();
-            String password = getRandomPassword();
+
             // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
-            RegistrationDto user = new RegistrationDto(login, password, status);
+            RegistrationDto user = new RegistrationDto(
+            getRandomLogin(),
+            getRandomPassword(),
+            status);
             return user;
         }
 
@@ -76,8 +76,8 @@ public class DataGenerator {
 
     @Value
     public static class RegistrationDto {
-//        String login;
-//        String password;
+        String login;
+        String password;
         String status;
     }
 }
