@@ -1,15 +1,16 @@
 package ru.netology;
 
+import com.codeborne.selenide.Configuration;
 import com.github.javafaker.Faker;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import lombok.Value;
-
 import java.util.Locale;
-
 import static io.restassured.RestAssured.*;
+
+
 
 public class DataGenerator {
     private static final RequestSpecification requestSpec = new RequestSpecBuilder()
@@ -32,9 +33,9 @@ public class DataGenerator {
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
                 .body(user) // передаём в теле объект, который будет преобразован в JSON
-        .when() // "когда"
+                .when() // "когда"
                 .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-        .then() // "тогда ожидаем"
+                .then() // "тогда ожидаем"
                 .statusCode(200); // код 200 OK
     }
 
@@ -57,12 +58,11 @@ public class DataGenerator {
         }
 
         public static RegistrationDto getUser(String status) {
-
             // TODO: создать пользователя user используя методы getRandomLogin(), getRandomPassword() и параметр status
             RegistrationDto user = new RegistrationDto(
-            getRandomLogin(),
-            getRandomPassword(),
-            status);
+                    getRandomLogin(),
+                    getRandomPassword(),
+                    status);
             return user;
         }
 
